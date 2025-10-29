@@ -15,8 +15,7 @@ import { showNotification } from "../components/Notification";
 
 export default function FaceSwapper() {
   const [prompt, setPrompt] = useState(
-    `Make a soviet poster just keeping artistic style from the second image and using person from the first photo as a character. New character should look like the person provided in photo. Use facial features, hair and clothing from photo. Person must be instantly recognizable
-    Use poster styles for character.`
+    `Make a soviet poster just keeping artistic style from the second image and using person from the first photo as a character. New character should look like the person provided in photo. Use facial features, hair and clothing from photo. Person must be instantly recognizable. Use poster styles for character.`
   );
 
   const [showSettings, setShowSettings] = useState(false);
