@@ -8,7 +8,7 @@ export const showNotification = (
   title: string,
   message: string,
   type: "success" | "error" | "info",
-  showTime = 5000,
+  showTime = 30000,
   position:
     | "top-right"
     | "top-left"
