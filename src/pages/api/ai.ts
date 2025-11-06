@@ -34,6 +34,8 @@ export default async function handler(
       messages,
     });
 
+    console.log("[GPT] Completion:", JSON.stringify(completion, null, 2));
+
     // @ts-ignore
     const images = completion.choices[0].message.images;
     if (Array.isArray(images)) {

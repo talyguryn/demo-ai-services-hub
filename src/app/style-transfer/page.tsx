@@ -157,7 +157,8 @@ export default function FaceSwapper() {
 
     try {
       gptResponse = await axios.post("/api/ai", {
-        model: "openai/gpt-5-image-mini",
+        // model: "openai/gpt-5-image-mini",
+        model: "google/gemini-2.5-flash-image-preview",
         messages,
       });
     } catch (error) {
