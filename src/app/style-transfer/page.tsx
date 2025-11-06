@@ -58,7 +58,7 @@ export default function FaceSwapper() {
         .filter((style) => style.name === selectedStyle)
         .map(
           (style) => style.description
-        )}\n\nCartoon character should look like the person provided in photo. Use facial features, hair and clothing same as on the image with person. Incorporate elements from the photo into the character design.\n\nReturn the new image.`
+        )}\n\nCartoon character should look like the person provided in photo. Use facial features, hair and clothing same as on the image with person. Incorporate elements from the photo into the character design.\n\nReturn only the new image as a response.`
     );
   }, [selectedStyle]);
 
@@ -193,6 +193,35 @@ export default function FaceSwapper() {
     }
 
     setOutputImage(`data:image/png;base64,${image}`);
+
+    await new Promise((resolve) => setTimeout(() => resolve(true), 1000));
+    addFrameToImage(`data:image/png;base64,${image}`);
+  };
+
+  // place another image (frame) on the target base64 image
+  const addFrameToImage = (base64Image: string) => {
+    // add a frame to the base64 image
+    const frame = new Image();
+
+    frame.src = "/style-transfer/frame-01.png";
+    frame.onload = () => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+
+      const baseImage = new Image();
+      baseImage.src = base64Image;
+      baseImage.onload = () => {
+        canvas.width = baseImage.width;
+        canvas.height = baseImage.height;
+
+        ctx.drawImage(baseImage, 0, 0);
+        ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
+
+        const newBase64 = canvas.toDataURL("image/png");
+        setOutputImage(newBase64);
+      };
+    };
   };
 
   return (
