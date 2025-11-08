@@ -157,14 +157,13 @@ export default function FaceSwapper() {
 
     try {
       gptResponse = await axios.post("/api/ai", {
-        // model: "openai/gpt-5-image-mini",
-        model: "google/gemini-2.5-flash-image-preview",
+        model: "openai/gpt-5-image-mini",
         messages,
       });
     } catch (error) {
       console.error("Error generating image:", error);
       setIsGenerating(false);
-      // Use type narrowing to check if error is an AxiosError
+
       let errorMessage = "Failed to generate image.";
       if (axios.isAxiosError(error) && error.response?.data?.error) {
         errorMessage = error.response.data.error;
@@ -172,14 +171,6 @@ export default function FaceSwapper() {
       showNotification("Error", errorMessage, "error");
       return;
     }
-
-    // sleep for 2 seconds to simulate loading
-    // const gptResponse = await new Promise((resolve) =>
-    //   setTimeout(
-    //     () => resolve({ data: { response: { image: "base64ImageString" } } }),
-    //     2000
-    //   )
-    // );
 
     setIsGenerating(false);
 
@@ -192,15 +183,12 @@ export default function FaceSwapper() {
       return;
     }
 
-    setOutputImage(`data:image/png;base64,${image}`);
-
-    await new Promise((resolve) => setTimeout(() => resolve(true), 1000));
+    // setOutputImage(`data:image/png;base64,${image}`);
     addFrameToImage(`data:image/png;base64,${image}`);
   };
 
-  // place another image (frame) on the target base64 image
+  
   const addFrameToImage = (base64Image: string) => {
-    // add a frame to the base64 image
     const frame = new Image();
 
     frame.src = "/style-transfer/frame-01.png";

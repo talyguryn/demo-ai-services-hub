@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import OpenAI from "openai";
+// import fs from "fs";
 
 export default async function handler(
   req: NextApiRequest,
@@ -29,12 +30,14 @@ export default async function handler(
 
   try {
     const completion = await openai.chat.completions.create({
-      // model: 'google/gemini-2.5-flash-image-preview',
       model,
       messages,
     });
 
     console.log("[GPT] Completion:", JSON.stringify(completion, null, 2));
+
+    // save completion to a file for debugging
+    // fs.writeFileSync("completion.json", JSON.stringify(completion, null, 2));
 
     // @ts-ignore
     const images = completion.choices[0].message.images;
