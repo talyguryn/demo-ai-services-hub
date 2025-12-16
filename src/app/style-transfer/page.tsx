@@ -114,13 +114,13 @@ export default function FaceSwapper() {
 
   async function compressBase64Image(
     base64: string,
-    quality: number = 0.8
+    quality: number = 0.8,
+    maxSize: number = 1200
   ): Promise<string> {
     return new Promise<string>((resolve) => {
       const img = new Image();
       img.src = base64;
       img.onload = () => {
-        const maxSize = 1200;
         const scale = Math.min(1, maxSize / Math.max(img.width, img.height));
 
         // scaled dimensions
@@ -187,7 +187,6 @@ export default function FaceSwapper() {
     addFrameToImage(`data:image/png;base64,${image}`);
   };
 
-  
   const addFrameToImage = (base64Image: string) => {
     const frame = new Image();
 
